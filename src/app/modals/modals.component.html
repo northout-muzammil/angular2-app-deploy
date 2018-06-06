@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Add Card</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal(newCard.type)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #cardForm="ngForm"  (ngSubmit)="newCard.type == 1 ? addCard(newCard) : updateCard(newCard)">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" name="title" required [(ngModel)]="newCard.title">
+      <div *ngIf="!cardForm.valid">Title is required</div>
+    </div>
+
+    <div class="form-group">
+      <label>Descriptions</label>
+      <textarea class="form-control" name="description" [(ngModel)]="newCard.description" cols="30" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Image Url</label>
+      <input type="text" name="image-path" [(ngModel)]="newCard.imagePath" class="form-control">
+    </div>
+    <div [ngSwitch]="newCard.type">
+      <button *ngSwitchCase="1" type="submit" [disabled]="!cardForm.valid" class="btn btn-primary">Submit</button>
+      <button *ngSwitchCase="2" type="submit" [disabled]="!cardForm.valid" class="btn btn-primary">Save</button>
+    </div>
+
+  </form>
+</div>
